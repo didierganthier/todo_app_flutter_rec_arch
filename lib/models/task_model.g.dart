@@ -9,12 +9,12 @@ part of 'task_model.dart';
 _$TaskImpl _$$TaskImplFromJson(Map<String, dynamic> json) => _$TaskImpl(
       id: (json['id'] as num).toInt(),
       title: json['title'] as String,
-      isCompleted: json['isCompleted'] as bool,
+      isCompleted: _boolFromJson(json['isCompleted']),
     );
 
 Map<String, dynamic> _$$TaskImplToJson(_$TaskImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
-      'isCompleted': instance.isCompleted,
+      'isCompleted': _boolToJson(instance.isCompleted),
     };

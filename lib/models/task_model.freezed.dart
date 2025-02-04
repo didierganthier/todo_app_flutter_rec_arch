@@ -22,6 +22,7 @@ Task _$TaskFromJson(Map<String, dynamic> json) {
 mixin _$Task {
   int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _boolFromJson, toJson: _boolToJson)
   bool get isCompleted => throw _privateConstructorUsedError;
 
   /// Serializes this Task to a JSON map.
@@ -38,7 +39,10 @@ abstract class $TaskCopyWith<$Res> {
   factory $TaskCopyWith(Task value, $Res Function(Task) then) =
       _$TaskCopyWithImpl<$Res, Task>;
   @useResult
-  $Res call({int id, String title, bool isCompleted});
+  $Res call(
+      {int id,
+      String title,
+      @JsonKey(fromJson: _boolFromJson, toJson: _boolToJson) bool isCompleted});
 }
 
 /// @nodoc
@@ -84,7 +88,10 @@ abstract class _$$TaskImplCopyWith<$Res> implements $TaskCopyWith<$Res> {
       __$$TaskImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String title, bool isCompleted});
+  $Res call(
+      {int id,
+      String title,
+      @JsonKey(fromJson: _boolFromJson, toJson: _boolToJson) bool isCompleted});
 }
 
 /// @nodoc
@@ -124,7 +131,10 @@ class __$$TaskImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TaskImpl implements _Task {
   _$TaskImpl(
-      {required this.id, required this.title, required this.isCompleted});
+      {required this.id,
+      required this.title,
+      @JsonKey(fromJson: _boolFromJson, toJson: _boolToJson)
+      required this.isCompleted});
 
   factory _$TaskImpl.fromJson(Map<String, dynamic> json) =>
       _$$TaskImplFromJson(json);
@@ -134,6 +144,7 @@ class _$TaskImpl implements _Task {
   @override
   final String title;
   @override
+  @JsonKey(fromJson: _boolFromJson, toJson: _boolToJson)
   final bool isCompleted;
 
   @override
@@ -176,6 +187,7 @@ abstract class _Task implements Task {
   factory _Task(
       {required final int id,
       required final String title,
+      @JsonKey(fromJson: _boolFromJson, toJson: _boolToJson)
       required final bool isCompleted}) = _$TaskImpl;
 
   factory _Task.fromJson(Map<String, dynamic> json) = _$TaskImpl.fromJson;
@@ -185,6 +197,7 @@ abstract class _Task implements Task {
   @override
   String get title;
   @override
+  @JsonKey(fromJson: _boolFromJson, toJson: _boolToJson)
   bool get isCompleted;
 
   /// Create a copy of Task
