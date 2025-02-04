@@ -16,4 +16,24 @@ class TaskViewmodel extends ChangeNotifier {
     _tasks = await _taskRepository.getTasks();
     notifyListeners();
   }
+
+  Future<void> addTask(String title) async {
+    final newTask = Task(
+        id: DateTime.now().microsecondsSinceEpoch,
+        title: title,
+        isCompleted: false);
+    await _taskRepository.addTask(newTask);
+    notifyListeners();
+  }
+
+  Future<void> toggleTaskCompletion(Task task) async {
+    final updatedTask = task.copyWith(isCompleted: !task.isCompleted);
+    await _taskRepository.updateTask(task);
+    fetchTasks();
+  }
+
+  Future<void> deleteTask(int id) async {
+    await _taskRepository.deleteTask(id);
+    fetchTasks();
+  }
 }
