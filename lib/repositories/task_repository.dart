@@ -21,12 +21,12 @@ class TaskRepository {
       version: 1,
       onCreate: (db, version) async {
         await db.execute('''
-          CREATE TABLE tasks (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT NOT NULL,
-            isCompleted INTEGER NOT NULL
-          )
-        ''');
+        CREATE TABLE tasks (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          title TEXT NOT NULL,
+          isCompleted INTEGER NOT NULL DEFAULT 0
+        )
+      ''');
       },
     );
   }
@@ -45,7 +45,7 @@ class TaskRepository {
   Future<int> updateTask(Task task) async {
     final db = await database;
     return await db
-        .update('tasks', task.toJson(), where: 'i d= ?', whereArgs: [task.id]);
+        .update('tasks', task.toJson(), where: 'id= ?', whereArgs: [task.id]);
   }
 
   Future<int> deleteTask(int id) async {

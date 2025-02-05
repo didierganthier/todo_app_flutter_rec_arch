@@ -23,7 +23,7 @@ class TaskViewmodel extends ChangeNotifier {
         title: title,
         isCompleted: false);
     await _taskRepository.addTask(newTask);
-    notifyListeners();
+    fetchTasks();
   }
 
   Future<void> toggleTaskCompletion(Task task) async {

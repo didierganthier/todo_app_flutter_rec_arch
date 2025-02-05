@@ -9,9 +9,12 @@ class TaskListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final taskViewModel = Provider.of<TaskViewmodel>(context);
 
+    final TextEditingController newTaskTextEditingController =
+        TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("To-Do List"),
+        title: const Text("To-Do List"),
       ),
       body: ListView.builder(
         itemCount: taskViewModel.tasks.length,
@@ -31,7 +34,57 @@ class TaskListScreen extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => taskViewModel.addTask("New Task"),
+        onPressed: () => showDialog(
+          context: context,
+          builder: (context) {
+            return Dialog(
+              child: Container(
+                padding: const EdgeInsets.all(16.0),
+                constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height / 3,
+                  maxWidth: MediaQuery.of(context).size.width / 1.5,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextFormField(
+                      controller: newTaskTextEditingController,
+                      onChanged: (value) =>
+                          newTaskTextEditingController.text = value,
+                      decoration: const InputDecoration(
+                        labelText: 'New Task',
+                      ),
+                    ),
+                    const SizedBox(height: 16.0),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (newTaskTextEditingController.text.isEmpty ||
+                            newTaskTextEditingController.text.trim() == '') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Row(
+                                children: [
+                                  Icon(Icons.dangerous),
+                                  SizedBox(width: 8.0),
+                                  Text('Please enter a task'),
+                                ],
+                              ),
+                            ),
+                          );
+                        } else {
+                          taskViewModel
+                              .addTask(newTaskTextEditingController.text);
+                          Navigator.of(context).pop();
+                        }
+                      },
+                      child: const Text('Add a new task'),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
         child: const Icon(Icons.add),
       ),
     );
